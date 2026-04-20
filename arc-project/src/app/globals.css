@@ -1,0 +1,208 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-base: #0B0C10;
+  --bg-surface: #1F2833;
+  --bg-surface-elevated: #2A3545;
+  --bg-surface-active: #354555;
+  --text-primary: #C5C6C7;
+  --text-secondary: #8A9199;
+  --text-heading: #E0E1E2;
+  --accent-primary: #66FCF1;
+  --accent-secondary: #45A29E;
+  --border-default: #1F2833;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-surface);
+  border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bg-surface-elevated);
+}
+
+/* Selection */
+::selection {
+  background: rgba(102, 252, 241, 0.2);
+  color: var(--text-heading);
+}
+
+/* Scanlines utility */
+.scanlines {
+  position: relative;
+  overflow: hidden;
+}
+
+.scanlines::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(102, 252, 241, 0.02) 2px,
+    rgba(102, 252, 241, 0.02) 4px
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-56px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+@keyframes typingDot {
+  0%, 60%, 100% { opacity: 0.3; }
+  30% { opacity: 1; }
+}
+
+@keyframes guidePulse {
+  0%, 100% {
+    box-shadow: 0 0 0 4px rgba(102, 252, 241, 0.15), 0 0 20px rgba(102, 252, 241, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(102, 252, 241, 0.1), 0 0 30px rgba(102, 252, 241, 0.3);
+  }
+}
+
+@keyframes skeletonPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Utility classes */
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-slide-down {
+  animation: slideDown 0.4s ease-out 0.1s forwards;
+  opacity: 0;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-out-right {
+  animation: slideOutRight 0.3s ease-in forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.typing-dot-1 { animation: typingDot 0.6s ease-in-out infinite; }
+.typing-dot-2 { animation: typingDot 0.6s ease-in-out 0.2s infinite; }
+.typing-dot-3 { animation: typingDot 0.6s ease-in-out 0.4s infinite; }
+
+.guide-highlight {
+  animation: guidePulse 2s ease-in-out infinite;
+}
+
+.skeleton-bar {
+  height: 12px;
+  background: var(--bg-surface-elevated);
+  animation: skeletonPulse 1.5s ease-in-out infinite;
+}
+
+/* Date input dark theme fix */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.8);
+  cursor: pointer;
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
